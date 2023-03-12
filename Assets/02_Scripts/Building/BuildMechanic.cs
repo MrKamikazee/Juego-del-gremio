@@ -2,7 +2,7 @@
  * Created by: MrKamikazeee
  * Created on: 11/03/2023
  * 
- * Last Modified: 11/03/2023
+ * Last Modified: 12/03/2023
  */
 
 using System;
@@ -14,74 +14,37 @@ namespace JuegoGremio.Build
 {
     public class BuildMechanic : MonoBehaviour
     {
-        /*#region Singleton
-        
-        private static BuildMechanic _instance;
-        public static BuildMechanic instance
-        {
-            get
-            {
-                if (!_instance)
-                    Debug.LogWarningFormat("Accesing {0} before its Awake phase", typeof(BuildMechanic).Name);
-                return _instance;
-            }
-        }
-
-        private void Awake()
-        {
-            if (_instance != null && _instance != this || FindObjectsOfType<BuildMechanic>().Length > 1)
-            {
-                Debug.LogWarningFormat("Please make sure there is only one {0} in the scene", typeof(BuildMechanic).Name);
-                Destroy(this);
-                return;
-            }
-            else
-            {
-                _instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-        }
-
-        #endregion*/
-        
         [Header("Building")]
         public GameObject canBuildPrefab;
-        private Ray _ray1, _ray2, _ray3;
-        public RoomType roomType;
+        public Ray ray1, ray2, ray3;
         private List<GameObject> _canBuildObject;
+        private bool _isStairs;
 
-        public enum RoomType
-        {
-            None,
-            Stairs,
-            Reception_Short,
-            Reception_Medium,
-            Reception_Large
-        }
+        
 
         void Start()
         {
             _canBuildObject = new List<GameObject>();
-            _ray1 = new Ray(transform.position, Vector3.left);
-            _ray2 = new Ray(transform.position, Vector3.right);
-            if (roomType == RoomType.Stairs)
-                _ray3 = new Ray(transform.position, Vector3.up);
+            ray1 = new Ray(transform.position, Vector3.left);
+            ray2 = new Ray(transform.position, Vector3.right);
+            if (_isStairs)
+                ray3 = new Ray(transform.position, Vector3.up);
         }
         private void Update()
         {
-            Debug.DrawRay(_ray1.origin, _ray1.direction * 1f, Color.green);
-            Debug.DrawRay(_ray2.origin, _ray2.direction * 1f, Color.red);
-            if (roomType == RoomType.Stairs)
-                Debug.DrawRay(_ray3.origin,_ray3.direction * 1f, Color.cyan);
+            Debug.DrawRay(ray1.origin, ray1.direction * 1f, Color.green);
+            Debug.DrawRay(ray2.origin, ray2.direction * 1f, Color.red);
+            if (_isStairs)
+                Debug.DrawRay(ray3.origin,ray3.direction * 1f, Color.cyan);
         }
 
-        public void CanBuild()
+        public void ShowCanBuild()
         {
-            if (!Physics.Raycast(_ray1))
+            if (!Physics.Raycast(ray1))
                 _canBuildObject.Add(Instantiate(canBuildPrefab, transform.position - new Vector3(1,0,0), Quaternion.identity));
-            if (!Physics.Raycast(_ray2))
+            if (!Physics.Raycast(ray2))
                 _canBuildObject.Add(Instantiate(canBuildPrefab, transform.position + new Vector3(1,0,0), Quaternion.identity));
-            if (roomType == RoomType.Stairs && !Physics.Raycast(_ray3))
+            if (_isStairs && !Physics.Raycast(ray3))
                 _canBuildObject.Add(Instantiate(canBuildPrefab, transform.position + new Vector3(0,1,0), Quaternion.identity));
         }
 

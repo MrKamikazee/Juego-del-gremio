@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tittle: Reception
   sprite: {fileID: 0}
+  room: {fileID: 1805356300804624561, guid: 6d71f953828ff5b46a4a2834417649ce, type: 3}

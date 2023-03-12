@@ -2,7 +2,7 @@
  * Created by: MrKamikazeee
  * Created on: 11/03/2023
  * 
- * Last Modified: 11/03/2023
+ * Last Modified: 12/03/2023
  */
 
 using UnityEngine;
@@ -15,6 +15,7 @@ namespace JuegoGremio.Scrolls
         [Header("Visual")] 
         public string tittle;
         public Sprite sprite;
+        public GameObject room;
 
         public string GetTittle()
         {

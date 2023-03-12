@@ -7,13 +7,14 @@
 
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace JuegoGremio.Chest
 {
-    public class Chest : MonoBehaviour
+    public class Chest : MonoBehaviour, IPointerDownHandler
     {
         [Header("Chest")]
-        [SerializeField] private GameObject _coverChest, _baseChest;
+        [SerializeField] private GameObject _coverChest;
         [SerializeField] private Transform _chestClosePos, _chestOpenPos;
         private bool _isChestOpen;
 
@@ -22,8 +23,13 @@ namespace JuegoGremio.Chest
             DOTween.Init();
         }
 
-        public void OnClick()
+        public void OnPointerDown(PointerEventData eventData)
         {
+            if (_coverChest.transform.position == _chestOpenPos.position)
+                _isChestOpen = true;
+            else
+                _isChestOpen = false;
+                
             if (!_isChestOpen)
             {
                 _coverChest.transform.DOMoveY(_chestOpenPos.position.y, 1f);

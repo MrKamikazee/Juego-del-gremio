@@ -2,16 +2,16 @@
  * Created by: MrKamikazeee
  * Created on: 11/03/2023
  * 
- * Last Modified: 11/03/2023
+ * Last Modified: 12/03/2023
  */
 
-using System.Collections.Generic;
-using JuegoGremio.Build;
-using TMPro;
+using JuegoGremio.Scrolls;
 using UnityEngine;
+using TMPro;
 
 namespace JuegoGremio.Scrolls
 {
+    [RequireComponent(typeof(ParchmentDragAndDrop))]
     public class Parchment : MonoBehaviour
     {
         [Header("Data")] 
@@ -23,25 +23,6 @@ namespace JuegoGremio.Scrolls
             tittle = GetComponentInChildren<TextMeshProUGUI>();
             tittle.text = _data.GetTittle();
         }
-
-        public void CanBuild()
-        {
-            GameObject[] buildMechanic = new GameObject[GameObject.FindGameObjectsWithTag("Rooms").Length];
-            buildMechanic = GameObject.FindGameObjectsWithTag("Rooms");
-            for (int i = 0; i < buildMechanic.Length; i++)
-                buildMechanic[i].GetComponent<BuildMechanic>().CanBuild();
-            
-            // BuildMechanic.instance.CanBuild();
-        }
-
-        public void CancelBuild()
-        {
-            GameObject[] buildMechanic = new GameObject[GameObject.FindGameObjectsWithTag("Rooms").Length];
-            buildMechanic = GameObject.FindGameObjectsWithTag("Rooms");
-            for (int i = 0; i < buildMechanic.Length; i++)
-                buildMechanic[i].GetComponent<BuildMechanic>().CancelBuild();
-            
-            // BuildMechanic.instance.CancelBuild();
-        }
+        
     }
 }
