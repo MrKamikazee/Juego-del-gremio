@@ -20,12 +20,14 @@ namespace JuegoGremio.Scrolls
         private Vector3 _tempPos;
         private Transform _placeToBuild;  
         
+        // Ejecute this when the player clicks
         public void OnPointerDown(PointerEventData eventData)
         {
             _tempPos = transform.position;
             ShowCanBuild();
         }
 
+        // Ejecute this when the player move the mouse
         public void OnDrag(PointerEventData eventData)
         {
             transform.position = Input.mousePosition;
@@ -42,11 +44,13 @@ namespace JuegoGremio.Scrolls
             }
         }
 
+        // Ejecute this when the player release the click
         public void OnEndDrag(PointerEventData eventData)
         {
             TryBuild();
         }
         
+        // Show the places where the player can build
         public void ShowCanBuild()
         {
             GameObject[] buildMechanic = new GameObject[GameObject.FindGameObjectsWithTag("Rooms").Length];
@@ -55,6 +59,7 @@ namespace JuegoGremio.Scrolls
                 buildMechanic[i].GetComponent<BuildMechanic>().ShowCanBuild();
         }
 
+        // Try to build the room
         public void TryBuild()
         {
             GameObject[] buildMechanic = new GameObject[GameObject.FindGameObjectsWithTag("Rooms").Length];
@@ -72,6 +77,7 @@ namespace JuegoGremio.Scrolls
                 buildMechanic[i].GetComponent<BuildMechanic>().CancelBuild();
         }
 
+        // Create the raycast on the mouse to do the magic
         private RaycastHit CastRay()
         {
             Vector3 screenMousePosFar = new Vector3(

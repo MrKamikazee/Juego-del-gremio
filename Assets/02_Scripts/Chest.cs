@@ -23,6 +23,7 @@ namespace JuegoGremio.Chest
             DOTween.Init();
         }
 
+        // Open the chest
         public void OnPointerDown(PointerEventData eventData)
         {
             if (_coverChest.transform.position == _chestOpenPos.position)

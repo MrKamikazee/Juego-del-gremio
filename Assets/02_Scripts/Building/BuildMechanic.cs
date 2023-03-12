@@ -20,8 +20,6 @@ namespace JuegoGremio.Build
         private List<GameObject> _canBuildObject;
         private bool _isStairs;
 
-        
-
         void Start()
         {
             _canBuildObject = new List<GameObject>();
@@ -30,14 +28,8 @@ namespace JuegoGremio.Build
             if (_isStairs)
                 ray3 = new Ray(transform.position, Vector3.up);
         }
-        private void Update()
-        {
-            Debug.DrawRay(ray1.origin, ray1.direction * 1f, Color.green);
-            Debug.DrawRay(ray2.origin, ray2.direction * 1f, Color.red);
-            if (_isStairs)
-                Debug.DrawRay(ray3.origin,ray3.direction * 1f, Color.cyan);
-        }
 
+        // Show the places to build
         public void ShowCanBuild()
         {
             if (!Physics.Raycast(ray1))
@@ -48,6 +40,7 @@ namespace JuegoGremio.Build
                 _canBuildObject.Add(Instantiate(canBuildPrefab, transform.position + new Vector3(0,1,0), Quaternion.identity));
         }
 
+        // Cancel the build
         public void CancelBuild()
         {
             for (int i = 0; i < _canBuildObject.Count; i++)
