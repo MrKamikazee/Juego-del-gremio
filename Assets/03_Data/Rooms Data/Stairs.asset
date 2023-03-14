@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5b742391a6d5c647bf4877a5e356b36, type: 3}
+  m_Name: Stairs
+  m_EditorClassIdentifier: 
+  typeRoom: 1
+  smallVersion: {fileID: 1805356300804624561, guid: 1a628e9e5afb2754ba2710e620948327,
+    type: 3}
+  mediumVersion: {fileID: 0}
+  largeVersion: {fileID: 0}
