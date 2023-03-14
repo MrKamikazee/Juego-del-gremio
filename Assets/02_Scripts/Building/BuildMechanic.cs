@@ -2,52 +2,77 @@
  * Created by: MrKamikazeee
  * Created on: 11/03/2023
  * 
- * Last Modified: 12/03/2023
+ * Last Modified: 13/03/2023
  */
 
-using System;
-using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace JuegoGremio.Build
+namespace JuegoGremio.Room
 {
     public class BuildMechanic : MonoBehaviour
     {
-        [Header("Building")]
-        public GameObject canBuildPrefab;
-        public Ray ray1, ray2, ray3;
-        private List<GameObject> _canBuildObject;
-        private bool _isStairs;
-
-        void Start()
+        [HideInInspector]
+        public bool upgradeRoom = false;
+        
+        // Build a new room
+        public void BuildNewRoom(GameObject room)
         {
-            _canBuildObject = new List<GameObject>();
+            GameObject roomCreated = Instantiate(room, transform.position, quaternion.identity);
+            roomCreated.GetComponent<BuildMechanic>().StartVerifyRoom(roomCreated);
+            FinishBuild(roomCreated);
+        }
+
+        // Start the upgrade verification
+        private void StartVerifyRoom(GameObject roomCreated)
+        {
+            Ray ray1, ray2;
+            RaycastHit hit1, hit2;
             ray1 = new Ray(transform.position, Vector3.left);
             ray2 = new Ray(transform.position, Vector3.right);
-            if (_isStairs)
-                ray3 = new Ray(transform.position, Vector3.up);
+            Physics.Raycast(ray1, out hit1);
+            Physics.Raycast(ray2, out hit2);
+            if (hit1.collider != null)
+                VerifyRoom(hit1, roomCreated);
+            if (hit2.collider != null)
+                VerifyRoom(hit2, roomCreated);
         }
 
-        // Show the places to build
-        public void ShowCanBuild()
+        // Verify if the room can upgrade or not
+        private void VerifyRoom(RaycastHit hit, GameObject roomCreated)
         {
-            if (!Physics.Raycast(ray1))
-                _canBuildObject.Add(Instantiate(canBuildPrefab, transform.position - new Vector3(1,0,0), Quaternion.identity));
-            if (!Physics.Raycast(ray2))
-                _canBuildObject.Add(Instantiate(canBuildPrefab, transform.position + new Vector3(1,0,0), Quaternion.identity));
-            if (_isStairs && !Physics.Raycast(ray3))
-                _canBuildObject.Add(Instantiate(canBuildPrefab, transform.position + new Vector3(0,1,0), Quaternion.identity));
-        }
+            if (hit.collider.GetComponent<Rooms>()._roomData.typeRoom != roomCreated.GetComponent<Rooms>()._roomData.typeRoom ||
+                hit.collider.GetComponent<Rooms>().largeRoom == Rooms.LargeRoom.Large)
+                return;
 
-        // Cancel the build
-        public void CancelBuild()
-        {
-            for (int i = 0; i < _canBuildObject.Count; i++)
+            if (hit.collider.GetComponent<Rooms>().largeRoom == Rooms.LargeRoom.Small)
             {
-                Destroy(_canBuildObject[i]);
+                Instantiate(hit.collider.GetComponent<Rooms>()._roomData.mediumVersion, transform.position + new Vector3(.5f,0,0),
+                    quaternion.identity);
+                upgradeRoom = true;
+                Destroy(hit.collider.gameObject);
             }
-            _canBuildObject.Clear();
+            if (hit.collider.GetComponent<Rooms>().largeRoom == Rooms.LargeRoom.Medium)
+            {
+                Instantiate(hit.collider.GetComponent<Rooms>()._roomData.largeVersion, transform.position + new Vector3(1f,0,0),
+                    quaternion.identity);
+                upgradeRoom = true;
+                Destroy(hit.collider.gameObject);
+            }
+        }
+
+        // Finish the build event
+        private void FinishBuild(GameObject roomCreated)
+        {
+            if (roomCreated.GetComponent<BuildMechanic>().upgradeRoom)
+            {
+                Debug.Log(roomCreated.gameObject.name);
+                Destroy(roomCreated.gameObject);
+            }
+            GameObject[] roomsBuild = new GameObject[GameObject.FindGameObjectsWithTag("Rooms Build").Length];
+            roomsBuild = GameObject.FindGameObjectsWithTag("Rooms Build");
+            for (int i = 0; i < roomsBuild.Length; i++)
+                Destroy(roomsBuild[i]);
         }
     }
 }

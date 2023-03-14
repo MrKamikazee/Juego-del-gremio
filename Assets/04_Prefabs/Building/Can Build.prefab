@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4558666370729995932}
   - component: {fileID: 7456015385552127523}
   - component: {fileID: 7915131136706750332}
+  - component: {fileID: 6905588399991560837}
   m_Layer: 0
   m_Name: Can Build
   m_TagString: Rooms Build
@@ -97,3 +98,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6905588399991560837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2686308909081502343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6db14eccc25e9654a9d37d9d721eb3cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canBuildPrefab: {fileID: 0}

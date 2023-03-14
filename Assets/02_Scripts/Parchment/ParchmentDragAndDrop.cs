@@ -2,13 +2,12 @@
  * Created by: MrKamikazeee
  * Created on: 12/03/2023
  * 
- * Last Modified: 12/03/2023
+ * Last Modified: 13/03/2023
  */
 
 using DG.Tweening;
-using JuegoGremio.Build;
+using JuegoGremio.Room;
 using UnityEngine;
-using Unity.Mathematics;
 using UnityEngine.EventSystems;
 
 namespace JuegoGremio.Scrolls
@@ -18,7 +17,7 @@ namespace JuegoGremio.Scrolls
         [Header("Drag and Drop system")] 
         private bool _canBuild;
         private Vector3 _tempPos;
-        private Transform _placeToBuild;  
+        private RaycastHit hit;
         
         // Ejecute this when the player clicks
         public void OnPointerDown(PointerEventData eventData)
@@ -31,17 +30,7 @@ namespace JuegoGremio.Scrolls
         public void OnDrag(PointerEventData eventData)
         {
             transform.position = Input.mousePosition;
-            RaycastHit hit = CastRay();
-            if (hit.collider != null)
-            {
-                if (!hit.collider.CompareTag("Rooms Build"))
-                {
-                    _canBuild = false;
-                    return;
-                }
-                _canBuild = true;
-                _placeToBuild = hit.collider.gameObject.transform;
-            }
+            hit = CastRay();
         }
 
         // Ejecute this when the player release the click
@@ -53,28 +42,30 @@ namespace JuegoGremio.Scrolls
         // Show the places where the player can build
         public void ShowCanBuild()
         {
-            GameObject[] buildMechanic = new GameObject[GameObject.FindGameObjectsWithTag("Rooms").Length];
-            buildMechanic = GameObject.FindGameObjectsWithTag("Rooms");
-            for (int i = 0; i < buildMechanic.Length; i++)
-                buildMechanic[i].GetComponent<BuildMechanic>().ShowCanBuild();
+            GameObject[] showBuild = new GameObject[GameObject.FindGameObjectsWithTag("Rooms").Length];
+            showBuild = GameObject.FindGameObjectsWithTag("Rooms");
+            for (int i = 0; i < showBuild.Length; i++)
+                showBuild[i].GetComponent<Rooms>().ShowCanBuild();
         }
 
         // Try to build the room
         public void TryBuild()
         {
-            GameObject[] buildMechanic = new GameObject[GameObject.FindGameObjectsWithTag("Rooms").Length];
-            buildMechanic = GameObject.FindGameObjectsWithTag("Rooms");
-            if (!_canBuild)
-                transform.DOMove(_tempPos, .2f);
-            else
+            if (hit.collider == null)
             {
-                Instantiate( _data.room, _placeToBuild.position, quaternion.identity);
-                for (int i = 0; i < buildMechanic.Length; i++)
-                    buildMechanic[i].GetComponent<BuildMechanic>().CancelBuild();
+                transform.DOMove(_tempPos, .2f);
+                return;
+            }
+            
+            if (hit.collider.CompareTag("Rooms Build"))
+            {
+                hit.collider.GetComponent<BuildMechanic>().BuildNewRoom(_data.room);
                 Destroy(this.gameObject);
             }
-            for (int i = 0; i < buildMechanic.Length; i++)
-                buildMechanic[i].GetComponent<BuildMechanic>().CancelBuild();
+            else
+            {
+                transform.DOMove(_tempPos, .2f);
+            }
         }
 
         // Create the raycast on the mouse to do the magic

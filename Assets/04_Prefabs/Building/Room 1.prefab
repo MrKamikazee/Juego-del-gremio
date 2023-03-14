@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 1805356300804624565}
   - component: {fileID: 1805356300804624564}
   - component: {fileID: 1805356300804624567}
-  - component: {fileID: 1948609435270228747}
+  - component: {fileID: 7992317646926336810}
+  - component: {fileID: -368656311614011346}
   m_Layer: 0
   m_Name: Room 1
   m_TagString: Rooms
@@ -98,7 +99,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1948609435270228747
+--- !u!114 &7992317646926336810
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,9 +108,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1805356300804624561}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 058215fbc6b07c04dbe48a5205605b41, type: 3}
+  m_Script: {fileID: 11500000, guid: 6db14eccc25e9654a9d37d9d721eb3cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-368656311614011346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805356300804624561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab411d3bde8fe714fb92609dd5e966b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   canBuildPrefab: {fileID: 2686308909081502343, guid: f48edfb41b2cd7a4da9ce116ada6bfc4,
     type: 3}
-  roomLarge: 1
+  _roomData: {fileID: 11400000, guid: 7bb5dba16e37cf546b8353672e6054ae, type: 2}
+  largeRoom: 1

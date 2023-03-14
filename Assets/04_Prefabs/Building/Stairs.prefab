@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 1805356300804624565}
   - component: {fileID: 1805356300804624564}
   - component: {fileID: 1805356300804624567}
-  - component: {fileID: -3487376274028167628}
-  - component: {fileID: -4914963581876400931}
+  - component: {fileID: 7992317646926336810}
+  - component: {fileID: -8077439550705104877}
   m_Layer: 0
-  m_Name: Room 3
+  m_Name: Stairs
   m_TagString: Rooms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,8 +30,8 @@ Transform:
   m_GameObject: {fileID: 1805356300804624561}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 52564077f5b762a4d91782b9ad763d28, type: 2}
+  - {fileID: 2100000, guid: 795d5fd48ebaa0e45ab1ccbd9eccd727, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -99,7 +99,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-3487376274028167628
+--- !u!114 &7992317646926336810
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6db14eccc25e9654a9d37d9d721eb3cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-4914963581876400931
+--- !u!114 &-8077439550705104877
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,5 +125,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canBuildPrefab: {fileID: 2686308909081502343, guid: f48edfb41b2cd7a4da9ce116ada6bfc4,
     type: 3}
-  _roomData: {fileID: 11400000, guid: 7bb5dba16e37cf546b8353672e6054ae, type: 2}
-  largeRoom: 3
+  _roomData: {fileID: 11400000, guid: c6b90368f63e45e45a36585745a8f0f5, type: 2}
+  largeRoom: 0
